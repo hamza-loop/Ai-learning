@@ -1,0 +1,34 @@
+[project]
+name = "week1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "hamza-loop", email = "hamzamd2877@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "groq>=1.7.0",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+week1 = "week1:main"
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.uv.workspace]
+members = [
+    "day2",
+    "day3",
+    "day3/venv",
+    "day4",
+    "day5",
+    "day6",
+    "day7",
+    "day8",
+    "day9",
+    "day1",
+]

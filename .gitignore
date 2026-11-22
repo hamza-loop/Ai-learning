@@ -1,0 +1,28 @@
+
+# Private project
+week2/hiremeai/
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environments
+.venv/
+venv/
+**/.venv/
+**/venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Build files
+build/
+dist/
+*.egg-info/
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
