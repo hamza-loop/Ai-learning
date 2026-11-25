@@ -25,11 +25,42 @@ documents = [
     "Employee have the 90 days of notice period"
 ]
 
-documnet_embedding = model.encode(documents)
+document_embedding = model.encode(documents)
 
 def cosine_similarity(a,b):
     return np.dot(a,b) / (
         np.linalg.norm(a) * np.linalg.norm(b)
         )
 
+def retrieve(query_embedding):
+    scores = []
+    for i, doc_emb in enumerate(document_embedding):
+        sim_score = cosine_similarity(query_embedding, doc_emb)
+        scores.append((sim_score,documents[i]))
+    scores.sort(reverse=True)
+    return scores[0]
+
+def ask_llm(question, context):
+
+    system_prompt = f"""answer in one line, answer the question based on the context provided, if the context is not enough to answer the question then say 'I don't have information on that topic. context: {context}"""
+    system_message = {
+        "role": "system",
+        "content": system_prompt
+    }
+    message = {
+        "role" : "user",
+        "content" : question
+    }
+    messages = [system_message, message]
+    response = client.chat.completions.create(model=groqmodel, messages=messages)
+    answer = response.choices[0].message.content
+    return answer
+
+
 query = "haw much vecation do i get "
+
+q_embedding = model.encode(query)
+
+score,context = retrieve(q_embedding)
+answer = ask_llm(query,context)
+print(answer)
